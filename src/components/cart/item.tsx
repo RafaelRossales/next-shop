@@ -7,17 +7,22 @@ import {
   ItemImage,
 } from "./style";
 import Image from "next/image";
-import camiseta1 from "@/assets/1.png";
-export default function CartItem() {
+import { IProduct } from "@/types";
+
+interface ICartItemProps {
+  product: IProduct;
+}
+
+export default function CartItem({ product }: ICartItemProps) {
   return (
     <ItemContainer>
       <ItemImage>
-        <Image src={camiseta1} width={100} height={93} alt={""} />
+        <Image src={product.imageUrl} width={100} height={93} alt={""} />
       </ItemImage>
       <ItemContent>
         <ItemDetails>
-          <h2>Camiseta Beyond Limits</h2>
-          <span>R$ 79,90</span>
+          <h2>{product.name}</h2>
+          <span>{product.price}</span>
         </ItemDetails>
         <ItemActions>
           <div>Remover</div>
