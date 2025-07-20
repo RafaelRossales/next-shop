@@ -1,18 +1,12 @@
 import React from "react";
-import { SidePanelCartProducts, SidePanelContent } from "./style";
-import CartItem from "../cart/item";
+import { SidePanelContent } from "./style";
+import CartList from "../cart/list";
 
 export default function Content() {
   return (
     <SidePanelContent>
       <h1>Sacola de Compras</h1>
-      <SidePanelCartProducts>
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-        <CartItem />
-      </SidePanelCartProducts>
+      <CartList />
     </SidePanelContent>
   );
 }

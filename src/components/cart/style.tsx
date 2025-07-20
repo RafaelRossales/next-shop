@@ -1,14 +1,14 @@
 import { styled } from "@stitches/react";
 
+export const ListItems = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  gap: "1.5rem",
+});
+
 export const ItemContainer = styled("div", {
   display: "flex",
-  //flexDirection:'column',
-  //alignItems: "center",
-  //justifyContent: "space-between",
-  //   padding: "16px",
-  //   backgroundColor: "red",
   borderRadius: "8px",
-  // marginBottom: "16px",
   gap: "20px",
 });
 
@@ -35,7 +35,6 @@ export const ItemContent = styled("div", {
 });
 
 export const ItemDetails = styled("div", {
-  //   backgroundColor: "Blue",
   display: "flex",
   flexDirection: "column",
   gap: 10,
@@ -52,6 +51,6 @@ export const ItemDetails = styled("div", {
 export const ItemActions = styled("div", {
   width: "100%",
   height: "auto",
-  //   backgroundColor: "red",
-  color:'Green'
+
+  color: "Green",
 });

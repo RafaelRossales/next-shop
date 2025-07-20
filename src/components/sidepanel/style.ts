@@ -9,7 +9,6 @@ export const SidePanelContainer = styled("div", {
   height: "100%",
   zIndex: 1000,
   padding: "1.25rem",
-
   boxShadow: "0 0 10px rgba(0, 0, 0, 0.45)",
   display: "flex",
   flexDirection: "column",
@@ -31,12 +30,6 @@ export const SidePanelContent = styled("div", {
   display: "flex",
   flexDirection: "column",
   gap: "2rem",
-});
-
-export const SidePanelCartProducts = styled("div", {
-  display: "flex",
-  flexDirection: "column",
-  gap: "1.5rem",
 });
 
 export const SidePanelFooter = styled("div", {

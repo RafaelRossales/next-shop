@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 import logoImage from "@/assets/logo.svg";
 import Image from "next/image";
 import { SidePanelProvider } from "@/context/SidePanelContext";
- 
+
 globalStyles();
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -14,7 +14,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Image src={logoImage} alt="Logo" />
       </Header>
       <Container>{<Component {...pageProps} />}</Container>
-      
     </SidePanelProvider>
   );
 }
