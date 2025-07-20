@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ImageContainer, ProductContainer, ProductDetails } from "../product";
 
 import Image from "next/image";
@@ -9,16 +9,10 @@ import axios from "axios";
 import Head from "next/head";
 import { useCart } from "@/context/CartContext";
 import { ACTIONS } from "@/reducers/actions";
+import { IProduct } from "@/types";
 
 interface IProductProps {
-  product: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-    description: string;
-    defaultPriceId: string;
-  };
+  product: IProduct;
 }
 
 export default function Product({ product }: IProductProps) {
@@ -32,6 +26,7 @@ export default function Product({ product }: IProductProps) {
       type: ACTIONS.ADD_ITEM,
       payload: product,
     });
+    alert("item adicionar com sucesso");
   };
 
   // async function handleBuyNow() {
@@ -60,7 +55,7 @@ export default function Product({ product }: IProductProps) {
           <span>{product.price}</span>
           <p>{product.description}</p>
           <button onClick={() => addProduct({ product })}>
-            Adicionar ao carrinho
+            Colocar na Sacola
           </button>
         </ProductDetails>
       </ProductContainer>
