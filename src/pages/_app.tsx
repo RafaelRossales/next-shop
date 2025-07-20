@@ -1,19 +1,20 @@
 import { globalStyles } from "@/styles/global";
-import { Container, Header } from "@/styles/pages/styles";
+import { Container } from "@/styles/pages/styles";
 import type { AppProps } from "next/app";
-import logoImage from "@/assets/logo.svg";
-import Image from "next/image";
+
 import { SidePanelProvider } from "@/context/SidePanelContext";
+import { CartProvider } from "@/context/CartContext";
+import HeaderComponent from "@/components/Header";
 
 globalStyles();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SidePanelProvider>
-      <Header>
-        <Image src={logoImage} alt="Logo" />
-      </Header>
-      <Container>{<Component {...pageProps} />}</Container>
+      <CartProvider>
+        <HeaderComponent />
+        <Container>{<Component {...pageProps} />}</Container>
+      </CartProvider>
     </SidePanelProvider>
   );
 }
