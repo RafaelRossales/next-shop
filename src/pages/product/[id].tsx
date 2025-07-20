@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ImageContainer, ProductContainer, ProductDetails } from "../product";
 
 import Image from "next/image";
@@ -7,6 +7,8 @@ import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
 import axios from "axios";
 import Head from "next/head";
+import { useCart } from "@/context/CartContext";
+import { ACTIONS } from "@/reducers/actions";
 
 interface IProductProps {
   product: {
@@ -20,18 +22,30 @@ interface IProductProps {
 }
 
 export default function Product({ product }: IProductProps) {
-  async function handleBuyNow() {
-    try {
-      const response = await axios.post("/api/stripe", {
-        priceId: product.defaultPriceId,
-      });
-      const { checkoutUrl } = response.data;
-      window.location.href = checkoutUrl;
-    } catch (error) {
-      alert("Error creating checkout session");
-      console.error("Checkout session error:", error);
-    }
-  }
+  const cartContext = useCart();
+  const { dispatch } = cartContext as {
+    dispatch: React.Dispatch<{ type: string; payload: unknown }>;
+  };
+
+  const addProduct = ({ product }: IProductProps) => {
+    dispatch({
+      type: ACTIONS.ADD_ITEM,
+      payload: product,
+    });
+  };
+
+  // async function handleBuyNow() {
+  //   try {
+  //     const response = await axios.post("/api/stripe", {
+  //       priceId: product.defaultPriceId,
+  //     });
+  //     const { checkoutUrl } = response.data;
+  //     window.location.href = checkoutUrl;
+  //   } catch (error) {
+  //     alert("Error creating checkout session");
+  //     console.error("Checkout session error:", error);
+  //   }
+  // }
   return (
     <>
       <Head>
@@ -45,7 +59,9 @@ export default function Product({ product }: IProductProps) {
           <h1>{product.name}</h1>
           <span>{product.price}</span>
           <p>{product.description}</p>
-          <button onClick={handleBuyNow}>Comprar agora</button>
+          <button onClick={() => addProduct({ product })}>
+            Adicionar ao carrinho
+          </button>
         </ProductDetails>
       </ProductContainer>
     </>
