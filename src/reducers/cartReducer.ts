@@ -1,24 +1,18 @@
+import { IProduct } from "@/types";
 import { ACTIONS } from "./actions";
 
-interface CartItem {
-  defaultPriceId: string;
-  description: string;
-  id: string;
-  imageUrl: string;
-  name: string;
-  price: string;
-}
-
-interface CartState {
-  items: CartItem[];
+export interface CartState {
+  items: IProduct[];
+  quantity: number;
+  total: number;
 }
 
 interface AddItemAction {
   type: typeof ACTIONS.ADD_ITEM;
-  payload: CartItem;
+  payload: IProduct;
 }
 
-type CartAction = AddItemAction;
+export type CartAction = AddItemAction;
 
 export const cartReducer = (
   state: CartState,
@@ -29,6 +23,7 @@ export const cartReducer = (
       return {
         ...state,
         items: [...state.items, action.payload],
+        quantity: state.items.length + 1,
       };
     default:
       return state;
