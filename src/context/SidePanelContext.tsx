@@ -2,7 +2,7 @@ import React from "react";
 
 export type SidePanelProps = {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (isOpen: boolean) => void;
 };
 
 const SidePanelContext = React.createContext<SidePanelProps | undefined>(
@@ -14,8 +14,8 @@ export const SidePanelProvider: React.FC<React.PropsWithChildren<object>> = ({
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const onClose = () => {
-    setIsOpen(false);
+  const onClose = (isOpen: boolean) => {
+    setIsOpen(isOpen);
   };
 
   return (
