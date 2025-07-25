@@ -8,6 +8,7 @@ import { useSidePanel } from "@/context/SidePanelContext";
 
 export default function SidePanel() {
   const { isOpen } = useSidePanel();
+
   return (
     isOpen && (
       <SidePanelContainer>

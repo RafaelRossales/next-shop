@@ -1,17 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { stripe } from "@/lib/stripe";
+import { IProduct } from "@/types";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  console.log("Received request:", req.method, req.body);
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { priceId } = req.body;
+  const { items } = req.body as {
+    items: IProduct[] | [];
+  };
 
-  if (!priceId || typeof priceId !== "string") {
+  if (!Array.isArray(items) || items.length === 0) {
     return res.status(400).json({ error: "Valid price ID is required" });
   }
 
@@ -20,12 +24,7 @@ export default async function handler(
       mode: "payment",
       success_url: `${process.env.NEXT_PUBLIC_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_URL}/`,
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
+      line_items: items,
     });
 
     if (session?.url) {

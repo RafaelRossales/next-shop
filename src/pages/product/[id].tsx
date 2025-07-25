@@ -11,7 +11,7 @@ import { useCart } from "@/context/CartContext";
 import { ACTIONS } from "@/reducers/actions";
 import { IProduct } from "@/types";
 
-interface IProductProps {
+export interface IProductProps {
   product: IProduct;
 }
 
@@ -29,18 +29,6 @@ export default function Product({ product }: IProductProps) {
     alert("item adicionar com sucesso");
   };
 
-  // async function handleBuyNow() {
-  //   try {
-  //     const response = await axios.post("/api/stripe", {
-  //       priceId: product.defaultPriceId,
-  //     });
-  //     const { checkoutUrl } = response.data;
-  //     window.location.href = checkoutUrl;
-  //   } catch (error) {
-  //     alert("Error creating checkout session");
-  //     console.error("Checkout session error:", error);
-  //   }
-  // }
   return (
     <>
       <Head>

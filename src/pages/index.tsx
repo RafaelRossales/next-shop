@@ -8,8 +8,6 @@ import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-import SidePanel from "@/components/sidepanel";
-
 type ProductType = {
   id: string;
   name: string;
@@ -41,7 +39,6 @@ export default function Home({ products }: HomeProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HomeContainer ref={sliderRef}>
-        <SidePanel />
         {products.map((product) => {
           return (
             <Link
