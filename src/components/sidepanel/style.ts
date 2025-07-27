@@ -83,5 +83,9 @@ export const SidePanelFooterActions = styled("div", {
     "&:hover": {
       backgroundColor: "$green300",
     },
+    "&:disabled": {
+      backgroundColor: "$gray380",
+      cursor: "not-allowed",
+    },
   },
 });

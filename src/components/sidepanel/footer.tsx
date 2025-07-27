@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SidePanelFooter,
   SidePanelFooterActions,
@@ -10,6 +10,8 @@ import { currencyFormatter } from "@/utils";
 
 export default function Footer() {
   const { cart } = useCart();
+  const [disableCheckoutButton, setDisableCheckoutButton] =
+    useState<boolean>(true);
   const totalItems = cart.items.reduce(
     (acc, item) => acc + (item.quantity || 1),
     0
@@ -35,6 +37,10 @@ export default function Footer() {
     }
   }
 
+  React.useEffect(() => {
+    setDisableCheckoutButton(cart.items.length === 0);
+  }, [cart.items.length]);
+
   return (
     <SidePanelFooter>
       <SidePanelFooterDetails>
@@ -48,7 +54,9 @@ export default function Footer() {
         </div>
       </SidePanelFooterDetails>
       <SidePanelFooterActions>
-        <button onClick={handleCheckout}>Finalizar</button>
+        <button disabled={disableCheckoutButton} onClick={handleCheckout}>
+          Finalizar
+        </button>
       </SidePanelFooterActions>
     </SidePanelFooter>
   );
