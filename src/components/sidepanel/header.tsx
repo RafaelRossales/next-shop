@@ -11,6 +11,7 @@ export default function Header() {
       <Image
         src={closeIcon}
         alt="Logo"
+        className="close-icon"
         width={25}
         height={25}
         onClick={() => onClose(false)}

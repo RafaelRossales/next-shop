@@ -20,6 +20,14 @@ export const SidePanelHeader = styled("div", {
   justifyContent: "flex-end",
   height: "3.75rem",
   width: "100%",
+
+  ".close-icon": {
+    cursor: "pointer",
+    transition: "transform 0.2s",
+    "&:hover": {
+      transform: "scale(1.1)",
+    },
+  },
 });
 
 export const SidePanelContent = styled("div", {
