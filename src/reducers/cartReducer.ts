@@ -1,5 +1,6 @@
 import { IProduct } from "@/types";
 import { ACTIONS } from "./actions";
+import { addPrice, parsePriceToCents } from "@/utils";
 
 export interface CartState {
   items: IProduct[];
@@ -23,6 +24,8 @@ export const cartReducer = (
 ): CartState => {
   switch (action.type) {
     case ACTIONS.ADD_ITEM:
+      const priceInCents = parsePriceToCents(action.payload.price);
+
       const existingItemIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
       );
@@ -34,7 +37,7 @@ export const cartReducer = (
         return {
           ...state,
           items: updatedItems,
-          total: state.total + parseFloat(action.payload.price),
+          total: addPrice(state.total, priceInCents),
         };
       }
 
@@ -48,7 +51,7 @@ export const cartReducer = (
           },
         ],
         quantity: state.items.length + 1,
-        total: state.total + parseFloat(action.payload.price),
+        total: addPrice(state.total, priceInCents),
       };
     case ACTIONS.REMOVE_ITEM: {
       const updatedItems = state.items
@@ -64,6 +67,11 @@ export const cartReducer = (
         })
         .filter((item): item is IProduct => item !== null);
 
+      const totalInCents = updatedItems.reduce((acc, item) => {
+        const itemPriceInCents = parsePriceToCents(item.price);
+        return acc + itemPriceInCents * (item.quantity || 1);
+      }, 0);
+
       return {
         ...state,
         items: updatedItems,
@@ -71,13 +79,12 @@ export const cartReducer = (
           (acc, item) => acc + (item.quantity || 1),
           0
         ),
-        total: updatedItems.reduce(
-          (acc, item) => acc + parseFloat(item.price) * (item.quantity || 1),
-          0
-        ),
+        total: totalInCents / 100,
       };
     }
+
     case ACTIONS.INCREMENT_ITEM:
+      const incrementPriceInCents = parsePriceToCents(action.payload.price);
       const incrementedItems = state.items.map((item) => {
         if (item.id === action.payload.id) {
           return { ...item, quantity: (item.quantity || 0) + 1 };
@@ -87,7 +94,7 @@ export const cartReducer = (
       return {
         ...state,
         items: incrementedItems,
-        total: state.total + parseFloat(action.payload.price),
+        total: addPrice(state.total, incrementPriceInCents),
       };
 
     default:
