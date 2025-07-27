@@ -30,6 +30,15 @@ export const SidePanelContent = styled("div", {
   display: "flex",
   flexDirection: "column",
   gap: "2rem",
+
+  ".empty-cart-message": {
+    textAlign: "center",
+    padding: "2rem",
+    backgroundColor: "$gray700",
+    color: "$gray400",
+    fontSize: "$xl",
+    marginTop: "2rem",
+  },
 });
 
 export const SidePanelFooter = styled("div", {

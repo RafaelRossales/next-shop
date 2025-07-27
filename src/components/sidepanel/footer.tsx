@@ -10,8 +10,7 @@ import { currencyFormatter } from "@/utils";
 
 export default function Footer() {
   const { cart } = useCart();
-  const [disableCheckoutButton, setDisableCheckoutButton] =
-    useState<boolean>(true);
+
   const totalItems = cart.items.reduce(
     (acc, item) => acc + (item.quantity || 1),
     0
@@ -37,9 +36,6 @@ export default function Footer() {
     }
   }
 
-  React.useEffect(() => {
-    setDisableCheckoutButton(cart.items.length === 0);
-  }, [cart.items.length]);
 
   return (
     <SidePanelFooter>
@@ -54,7 +50,7 @@ export default function Footer() {
         </div>
       </SidePanelFooterDetails>
       <SidePanelFooterActions>
-        <button disabled={disableCheckoutButton} onClick={handleCheckout}>
+        <button onClick={handleCheckout}>
           Finalizar
         </button>
       </SidePanelFooterActions>
